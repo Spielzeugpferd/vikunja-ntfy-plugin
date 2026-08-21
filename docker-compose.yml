@@ -1,0 +1,23 @@
+# Local dev instance of ntfy for testing this plugin against.
+#
+# Bound to localhost only. For anything beyond local development, put this on
+# an internal network or behind your own auth/TLS setup per ntfy's own docs
+# (https://docs.ntfy.sh/config/) — this compose file is dev-only.
+services:
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: vikunja-ntfy-dev
+    restart: unless-stopped
+    command:
+      - serve
+    environment:
+      NTFY_BASE_URL: http://localhost:8080
+    ports:
+      - "127.0.0.1:8080:80"
+    volumes:
+      - ntfy-cache:/var/cache/ntfy
+      - ntfy-etc:/etc/ntfy
+
+volumes:
+  ntfy-cache:
+  ntfy-etc:
